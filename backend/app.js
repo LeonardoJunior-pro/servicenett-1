@@ -23,11 +23,37 @@ const notificationController = require('@/controllers/appControllers/notificatio
 // create our Express app
 const app = express();
 
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 const corsOptions = {
   origin: true,
   credentials: true,
 };
 app.use(cors(corsOptions));
+
+// Enable CORS for multiple origins
+// const allowedOrigins = ['https://dbd7-38-170-181-10.ngrok-free.app', process.env.SITE_URL];
+
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       // Allow requests with no origin (like mobile apps or curl requests)
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         const msg =
+//           'The CORS policy for this site does not allow access from the specified Origin.';
+//         return callback(new Error(msg), false);
+//       }
+//       if (!origin) return callback(null, true);
+//       return callback(null, true);
+//     },
+//   })
+// );
 
 // setting cors at one place for all the routes
 // putting cors as first in order to avoid unneccessary requests from unallowed origins
@@ -78,17 +104,17 @@ if (app.get('env') === 'development') {
 // production error handler
 app.use(errorHandlers.productionErrors);
 
-notificationController.sendMail();
+// notificationController.sendMail();
 
-// new CronJob('00 00 9 * * *', () => {
-//   try {
-//     console.log('Notification Crop Job run');
-//     notificationController.sendMail();
-//     // notificationController.update();
-//   } catch(e) {
-//     console.log("Nofication Crop Job error : ", e);
-//   }
-// });
+new CronJob('00 00 9 * * *', () => {
+  try {
+    console.log('Notification Crop Job run');
+    notificationController.sendMail();
+    notificationController.update();
+  } catch (e) {
+    console.log('Nofication Crop Job error : ', e);
+  }
+});
 
 // done! we export it so we can start the site in start.js
 module.exports = app;

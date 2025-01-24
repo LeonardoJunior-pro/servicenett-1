@@ -57,12 +57,12 @@ const sendMail = async () => {
 
     if (email_setting) {
       console.log('email_setting =>');
-      // sendViaEmailApi(from_mail, to_mail, contact, equipment, serial, date);
+      sendViaEmailApi(from_mail, to_mail, contact, equipment, serial, date);
     }
 
     if (sms_setting) {
       console.log('sms_setting =>');
-      sendViaSMSApi(from_sms, to_sms, contact, equipment, serial, date);
+      // sendViaSMSApi(from_sms, to_sms, contact, equipment, serial, date);
     }
   }
 };

@@ -1,9 +1,5 @@
 <div align="center">
-    <h1>ServiceNett</h1>
-    <p align="center">
-        <p>ServiceNett</p>
-    </p>
-
+    <h1>Service Nett CRM</h1>
 </div>
 
 ## How To
@@ -80,6 +76,26 @@ After installing the frontend dependencies, run the following command in the sam
 npm run dev
 ```
 
+This command will start the frontend server, and you'll be able to access the website on localhost:3000 in your web browser.
+
+:exclamation: :warning:` If you encounter an OpenSSL error while running the frontend server, follow these additional steps:`
+
+Reason behind error: This is caused by the node.js V17 compatible issues with OpenSSL, see [this](https://github.com/nodejs/node/issues/40547) and [this](https://github.com/webpack/webpack/issues/14532) issue on GitHub.
+
+Try one of these and error will be solved
+
+- > Downgrade to Node.js v18.
+
+- > Enable legacy OpenSSL provider
+
+Here is how you can enable legacy OpenSSL provider
+
+- On Unix-like (Linux, macOS, Git bash, etc.)
+
+```bash
+export NODE_OPTIONS=--openssl-legacy-provider
+```
+
 - On Windows command prompt:
 
 ```bash
@@ -92,15 +108,19 @@ set NODE_OPTIONS=--openssl-legacy-provider
 $env:NODE_OPTIONS = "--openssl-legacy-provider"
 ```
 
+Here is [reference](https://github.com/webpack/webpack/issues/14532#issuecomment-947012063) about enabling legacy OpenSSL provider
+
+After trying above solutions, run below command
+
 ```bash
 npm run start
 ```
+
+> If you still facing issue, then follow [this stackoverflow thread](https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported). It has so many different types of opinions. You definitely have solution after going through the thread.
 
 ### Website Login Credentials
 
 Once the website is up and running, you can log in using the following credentials:
 
-`username : admin@demo.com - password : admin123`
 
 Now you should be all set to run the project locally on your machine and explore its features.
-
