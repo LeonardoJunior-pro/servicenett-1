@@ -2,7 +2,7 @@
     <h1>Service Nett CRM</h1>
 </div>
 
-## How To
+## How T
 
 #### Step 1: Create Your MongoDB Account and Database/Cluster
 
